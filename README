@@ -1,0 +1,61 @@
+Notes on Graphql
+
+- graphql projects provide just one endpoint to do all the retrieval and updates to a service
+- retrieval or GETS are call queries
+- updates/creates or PUT/POST are called mutations
+- there are 2 ways to write graphql services
+  - code driven
+  - schema driven
+- schema driven
+  - you need to have a supported graphql java library imported as a dependency e.g. graphql-java-tools
+  - you need to have a a schema file defined in the class path (like the resource directory)
+  - you will also need to have a Query spring component defined that implements the GraphQLQueryResolver interface and implement all the query methods
+
+- mutations
+  - you define them just like queries in that they have their own type in the schema and a class that implements GraphQLMutationResolver
+  - requests that do mutations look like
+  mutation {
+     createUser(name: "blah", email: "blah@bla.com") {
+       id
+       name
+       email
+     }
+   }
+
+
+
+  mutation {
+    createUser(name: "blah", email: "blah@bla.com", roles: [10,11]) {
+      id
+      name
+      email
+      roles {
+        id
+      }
+    }
+
+    createRole(name: "role") {
+      id
+      name
+    }
+  }
+
+  query {
+    allUsers{
+      id
+      name
+      email
+      roles {
+        id
+        name
+      }
+    }
+    allRoles {
+      id
+      name
+      users {
+        id
+        name
+      }
+    }
+  }

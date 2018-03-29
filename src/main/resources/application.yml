@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: my-graphql-app
+server:
+  port: 8080
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    corsEnabled: true
